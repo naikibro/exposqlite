@@ -86,6 +86,10 @@ const updateDataTable = (setEntries) => {
 
 export default function App() {
   const [entries, setEntries] = useState([]);
+  const [showTaskInput, setShowTaskInput] = useState(false);
+  const handleBlur = () => {
+    setShowTaskInput(false);
+  };
 
   useEffect(() => {
     createTable();
@@ -126,7 +130,33 @@ export default function App() {
         ))}
       </ScrollView>
 
-      <TaskInput onAddEntry={(message) => insertEntry(message, setEntries)} />
+      <View style={{ width: "100%", display: "flex" }}>
+        <Button
+          mode="contained"
+          icon="plus"
+          onPress={() => setShowTaskInput(!showTaskInput)}
+          style={{
+            alignSelf: "flex-end",
+            marginBottom: 30,
+            marginRight: 10,
+            width: 200,
+            display: showTaskInput ? "flex" : "none",
+          }}
+        >
+          Add task
+        </Button>
+      </View>
+
+      {!showTaskInput && (
+        <TaskInput
+          onAddEntry={(message) => {
+            insertEntry(message, setEntries);
+            setShowTaskInput(true);
+          }}
+          onBlur={handleBlur}
+        />
+      )}
+
       <StatusBar style="auto" />
     </View>
   );

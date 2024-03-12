@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, TextInput, Button, StyleSheet } from "react-native";
 
-const TaskInput = ({ onAddEntry }) => {
+const TaskInput = ({ onAddEntry, onBlur }) => {
   const [message, setMessage] = useState("");
 
   const handleAddEntry = () => {
@@ -14,7 +14,7 @@ const TaskInput = ({ onAddEntry }) => {
   };
 
   return (
-    <View>
+    <View onBlur={onBlur}>
       <TextInput
         style={styles.input}
         placeholder="Enter task"
